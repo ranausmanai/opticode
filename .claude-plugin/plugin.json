@@ -1,21 +1,6 @@
 {
   "name": "opticode",
   "version": "0.1.0",
-  "description": "Test all hooks",
-  "hooks": {
-    "SessionStart": [
-      {
-        "type": "command",
-        "command": "touch /tmp/hook_sessionstart_works",
-        "timeout": 5
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "type": "command", 
-        "command": "touch /tmp/hook_promptsubmit_works",
-        "timeout": 5
-      }
-    ]
-  }
+  "description": "Prompt linting for Claude Code",
+  "hooks": "./config/hooks.json"
 }

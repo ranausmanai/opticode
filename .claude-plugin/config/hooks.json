@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "echo '{\"continue\":false,\"stopReason\":\"HOOK WORKS!\",\"suppressOutput\":true}'",
+        "timeout": 5
+      }
+    ]
+  }
+}
