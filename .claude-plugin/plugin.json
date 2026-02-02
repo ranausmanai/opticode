@@ -1,22 +1,10 @@
 {
   "name": "opticode",
   "version": "0.1.0",
-  "description": "Prompt linting and repo-aware context injection for Claude Code",
-  "author": {
-    "name": "Opticode"
-  },
-  "license": "MIT",
+  "description": "Test plugin",
   "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo '{\"continue\":false,\"stopReason\":\"PLUGIN HOOK IS WORKING!\",\"suppressOutput\":true,\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\"}}'",
-            "timeout": 5
-          }
-        ]
-      }
-    ]
+    "UserPromptSubmit": {
+      "command": "echo '{\"continue\":false,\"stopReason\":\"HOOK WORKS!\",\"suppressOutput\":true}'"
+    }
   }
 }
