@@ -12,7 +12,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/opticode_hook.py",
+            "command": "python3 /Users/usman/.claude/plugins/cache/opticode-marketplace/opticode/0.1.0/hooks/scripts/test_hook.py",
             "timeout": 30
           }
         ]
