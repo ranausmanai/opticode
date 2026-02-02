@@ -9,9 +9,13 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "echo '{\"continue\":false,\"stopReason\":\"PLUGIN HOOK IS WORKING!\",\"suppressOutput\":true,\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\"}}'",
-        "timeout": 5
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"continue\":false,\"stopReason\":\"PLUGIN HOOK IS WORKING!\",\"suppressOutput\":true,\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\"}}'",
+            "timeout": 5
+          }
+        ]
       }
     ]
   }
