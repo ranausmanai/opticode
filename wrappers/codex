@@ -1,0 +1,58 @@
+#!/bin/bash
+# Transparent opticode wrapper for codex CLI
+# WARNING: Only use if you understand PATH ordering!
+
+# Get this script's location
+WRAPPER_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+
+# Find the REAL codex by checking locations that are NOT this wrapper
+REAL_CODEX=""
+
+# Check npm global installation paths
+NPM_PREFIX=$(npm config get prefix 2>/dev/null)
+if [[ -n "$NPM_PREFIX" ]] && [[ -x "$NPM_PREFIX/bin/codex" ]]; then
+    if [[ "$NPM_PREFIX/bin/codex" != "$WRAPPER_PATH" ]]; then
+        REAL_CODEX="$NPM_PREFIX/bin/codex"
+    fi
+fi
+
+# Check other common locations
+if [[ -z "$REAL_CODEX" ]]; then
+    for path in /opt/homebrew/bin/codex /usr/local/bin/codex /usr/bin/codex; do
+        if [[ -x "$path" ]] && [[ "$path" != "$WRAPPER_PATH" ]]; then
+            # Verify it's not another wrapper (check first line)
+            FIRST_LINE=$(head -1 "$path" 2>/dev/null)
+            if [[ "$FIRST_LINE" != "#!/bin/bash" ]] && [[ "$FIRST_LINE" != "#!/bin/sh" ]]; then
+                REAL_CODEX="$path"
+                break
+            fi
+        fi
+    done
+fi
+
+# Error if we can't find the real binary
+if [[ -z "$REAL_CODEX" ]] || [[ ! -x "$REAL_CODEX" ]]; then
+    echo "Error: Could not find real codex binary" >&2
+    echo "" >&2
+    echo "The wrapper at $WRAPPER_PATH cannot find the actual codex CLI." >&2
+    echo "" >&2
+    echo "RECOMMENDED: Use aliases instead of PATH wrappers:" >&2
+    echo "  alias codex='opticode run --tool codex'" >&2
+    echo "" >&2
+    echo "Or find and run codex directly:" >&2
+    echo "  \$(npm config get prefix)/bin/codex" >&2
+    exit 1
+fi
+
+# If called with --help or --version, pass through
+if [[ "$1" == "--help" || "$1" == "-h" || "$1" == "--version" ]]; then
+    exec "$REAL_CODEX" "$@"
+fi
+
+# If no arguments, pass through to show tool's help/repl
+if [[ $# -eq 0 ]]; then
+    exec "$REAL_CODEX"
+fi
+
+# Optimize and run through opticode
+exec opticode run --tool codex "$@"

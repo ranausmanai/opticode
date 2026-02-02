@@ -1,0 +1,22 @@
+{
+  "name": "opticode",
+  "version": "0.1.0",
+  "description": "Prompt linting and repo-aware context injection for Claude Code",
+  "author": {
+    "name": "Opticode"
+  },
+  "license": "MIT",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/opticode_hook.py",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

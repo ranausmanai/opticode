@@ -1,0 +1,34 @@
+.claude-plugin - dir
+BENCHMARKS.md - docs
+BENCHMARK_HONESTY_REPORT.md - docs
+CLAUDE_PLUGIN_STATUS.md - docs
+CODEX_EVALUATION_FINDINGS.md - docs
+FIX_INSTRUCTIONS.md - docs
+INTEGRATION_GUIDE.md - docs
+MODEL_VS_RULES.md - docs
+PURPOSE.md - docs
+README.md - project overview
+TESTING_GUIDE.md - docs
+USAGE_MODES.md - docs
+benchmark.py - python file
+benchmark_one_liners.md - docs
+benchmark_report.html - file
+benchmark_report.txt - file
+benchmark_results.txt - file
+benchmark_summary.md - docs
+benchmark_visual.py - python file
+download_model.py - python file
+eval_quick.py - python file
+evaluate_with_codex.py - python file
+fix-tools.sh - file
+install.sh - file
+marketplace.json - file
+quick_test.sh - file
+run_llama_test.sh - file
+setup-aliases.sh - file
+setup-integrations.sh - file
+setup.cfg - file
+setup.py - python file
+src - source code
+test_llama.py - python file
+wrappers - dir

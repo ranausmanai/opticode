@@ -1,0 +1,55 @@
+#!/bin/bash
+# Transparent opticode wrapper for Claude Code
+# WARNING: Only use if you understand PATH ordering!
+
+# Get this script's location
+WRAPPER_PATH="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+
+# Find the REAL claude by checking locations that are NOT this wrapper
+REAL_CLAUDE=""
+
+# Check common installation paths (excluding wrapper location)
+for path in "$HOME/.local/share/claude/versions/"* "/opt/homebrew/bin/claude" "/usr/local/bin/claude"; do
+    if [[ -x "$path" ]] && [[ "$path" != "$WRAPPER_PATH" ]]; then
+        # Verify it's the actual binary (not a script/wrapper)
+        FILE_TYPE=$(file "$path" 2>/dev/null | grep -o "Mach-O\|ELF\|PE32" || echo "")
+        if [[ -n "$FILE_TYPE" ]] || [[ ! "$(head -1 "$path" 2>/dev/null)" == "#!/bin"* ]]; then
+            REAL_CLAUDE="$path"
+            break
+        fi
+    fi
+done
+
+# Check if there's a symlink that points to the real binary
+if [[ -z "$REAL_CLAUDE" ]] && [[ -L "$HOME/.local/bin/claude" ]]; then
+    LINK_TARGET=$(readlink "$HOME/.local/bin/claude" 2>/dev/null)
+    if [[ -x "$LINK_TARGET" ]] && [[ "$LINK_TARGET" != "$WRAPPER_PATH" ]]; then
+        REAL_CLAUDE="$LINK_TARGET"
+    fi
+fi
+
+# Error if we can't find the real binary
+if [[ -z "$REAL_CLAUDE" ]] || [[ ! -x "$REAL_CLAUDE" ]]; then
+    echo "Error: Could not find real claude binary" >&2
+    echo "" >&2
+    echo "The wrapper at $WRAPPER_PATH cannot find the actual Claude CLI." >&2
+    echo "" >&2
+    echo "RECOMMENDED: Use aliases instead of PATH wrappers:" >&2
+    echo "  alias claude='opticode run --tool claude'" >&2
+    echo "" >&2
+    echo "Or find and run claude directly from its install location." >&2
+    exit 1
+fi
+
+# If called with --help or --version, pass through
+if [[ "$1" == "--help" || "$1" == "-h" || "$1" == "--version" ]]; then
+    exec "$REAL_CLAUDE" "$@"
+fi
+
+# If no arguments, pass through to show tool's repl/help
+if [[ $# -eq 0 ]]; then
+    exec "$REAL_CLAUDE"
+fi
+
+# Optimize and run through opticode
+exec opticode run --tool claude "$@"

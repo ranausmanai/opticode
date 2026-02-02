@@ -1,0 +1,4 @@
+{
+  "codex_cmd": "codex exec --skip-git-repo-check {prompt}",
+  "claude_cmd": "claude"
+}

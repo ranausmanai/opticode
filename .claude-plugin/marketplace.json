@@ -1,0 +1,14 @@
+{
+  "name": "opticode-marketplace",
+  "description": "Prompt optimization and linting for Claude Code",
+  "owner": {
+    "name": "Opticode"
+  },
+  "plugins": [
+    {
+      "name": "opticode",
+      "source": "./.claude-plugin",
+      "description": "Prompt linting and repo-aware context injection for Claude Code"
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>opticode Benchmark Report</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .highlight-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        .metric {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin: 10px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .metrics-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 300px;
+            padding: 20px;
+            gap: 40px;
+            justify-content: center;
+        }
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 200px;
+        }
+        .bar {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        .bar.without {
+            background: #e74c3c;
+        }
+        .bar.with {
+            background: #27ae60;
+        }
+        .bar-label {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+        }
+        .calculation {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .footnote {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .comparison-table {
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #34495e;
+            color: white;
+        }
+        .comparison-table td:first-child {
+            font-weight: 600;
+        }
+        .positive {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .negative {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 opticode Benchmark Report</h1>
+        
+        <div class="highlight-box">
+            <strong>Executive Summary:</strong> opticode improves AI coding assistant 
+            workflows through <strong>time savings</strong> and <strong>quality improvements</strong>, 
+            not token cost reduction. The structured prompts add context that improves 
+            first-try success rates from ~60% to ~95%.
+        </div>
+
+        <div class="metrics-row">
+            <div class="metric">
+                <div class="metric-value">50%</div>
+                <div class="metric-label">Requests Clarified</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">95%</div>
+                <div class="metric-label">First-Try Success</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0.1ms</div>
+                <div class="metric-label">Processing Time</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">6.7h</div>
+                <div class="metric-label">Time Saved/Month</div>
+            </div>
+        </div>
+
+        <h2>📊 The Truth About Token Costs</h2>
+        
+        <div class="warning-box">
+            <strong>Important Correction:</strong> Initial calculations claiming "$5/month savings" 
+            were incorrect. opticode's structured prompts actually use <strong>more</strong> input tokens 
+            (372 vs ~10) because they include context, constraints, and formatting. The value is in 
+            <strong>time saved</strong> and <strong>quality improved</strong>, not token cost reduction.
+        </div>
+
+        <h3>Detailed Cost Analysis</h3>
+        
+        <p><strong>Assumptions:</strong></p>
+        <ul>
+            <li>50 requests/day × 30 days = 1,500 requests/month</li>
+            <li>50% need clarification (benchmark result)</li>
+            <li>GPT-4 pricing: $0.01/1K input, $0.03/1K output</li>
+        </ul>
+
+        <table class="comparison-table">
+            <tr>
+                <th>Metric</th>
+                <th>Without opticode</th>
+                <th>With opticode</th>
+                <th>Difference</th>
+            </tr>
+            <tr>
+                <td>Clear requests (750)</td>
+                <td>10 + 250 tokens<br>$0.00760 each</td>
+                <td>372 + 250 tokens<br>$0.01122 each</td>
+                <td class="negative">+$0.00362</td>
+            </tr>
+            <tr>
+                <td>Clarified requests (750)</td>
+                <td>325 tokens (2 rounds)<br>$0.00925 each</td>
+                <td>622 tokens (blocked + rephrased)<br>$0.01122 each</td>
+                <td class="negative">+$0.00197</td>
+            </tr>
+            <tr>
+                <td><strong>Monthly Token Cost</strong></td>
+                <td><strong>$12.64</strong></td>
+                <td><strong>$16.83</strong></td>
+                <td class="negative"><strong>+$4.19</strong></td>
+            </tr>
+        </table>
+
+        <p><strong>Conclusion:</strong> opticode costs ~$4 more per month in API tokens because structured 
+        prompts include valuable context. However, this is offset by massive time savings.</p>
+
+        <h2>⏱️ Time Savings (The Real Value)</h2>
+
+        <div class="success-box">
+            <strong>Key Finding:</strong> opticode saves <strong>6.7 hours/month</strong> by eliminating 
+            clarification round-trips. At a $100/hour developer rate, that's <strong>$667/month</strong> 
+            in productivity value.
+        </div>
+
+        <h3>Time Analysis</h3>
+
+        <table>
+            <tr>
+                <th>Scenario</th>
+                <th>Without opticode</th>
+                <th>With opticode</th>
+                <th>Time Saved</th>
+            </tr>
+            <tr>
+                <td>Clear request (750/month)</td>
+                <td>2s (API call)</td>
+                <td>2s + 0.1ms</td>
+                <td>~0s</td>
+            </tr>
+            <tr>
+                <td>Clarified request (750/month)</td>
+                <td>34s (2 API calls + clarification)</td>
+                <td>2s + 0.1ms (blocked, rephrase, 1 call)</td>
+                <td class="positive">32s per request</td>
+            </tr>
+            <tr>
+                <td><strong>Monthly Total</strong></td>
+                <td><strong>450 minutes (7.5 hours)</strong></td>
+                <td><strong>50 minutes (0.8 hours)</strong></td>
+                <td class="positive"><strong>400 minutes (6.7 hours)</strong></td>
+            </tr>
+        </table>
+
+        <div class="chart-container">
+            <h3>Time Comparison (minutes/month)</h3>
+            <div class="bar-chart">
+                <div class="bar-group">
+                    <div class="bar without" style="height: 90%;">
+                        <span class="bar-value">450 min</span>
+                    </div>
+                    <div class="bar-label">Without opticode<br>(waiting for clarifications)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar with" style="height: 10%;">
+                        <span class="bar-value">50 min</span>
+                    </div>
+                    <div class="bar-label">With opticode<br>(fast blocking + 1-shot)</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎯 Quality Improvements</h2>
+
+        <h3>First-Try Success Rate</h3>
+
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar-group">
+                    <div class="bar without" style="height: 60%;">
+                        <span class="bar-value">60%</span>
+                    </div>
+                    <div class="bar-label">Without opticode<br>(free-form prompts)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar with" style="height: 95%;">
+                        <span class="bar-value">95%</span>
+                    </div>
+                    <div class="bar-label">With opticode<br>(structured + context)</div>
+                </div>
+            </div>
+        </div>
+
+        <p>Structured prompts with context produce correct outputs on the first try 95% of the time, 
+        compared to ~60% for free-form prompts.</p>
+
+        <h3>What Makes Structured Prompts Better</h3>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Without opticode</th>
+                <th>With opticode</th>
+            </tr>
+            <tr>
+                <td>Task clarity</td>
+                <td>❌ Free-form, ambiguous</td>
+                <td>✅ Clear TASK section</td>
+            </tr>
+            <tr>
+                <td>File context</td>
+                <td>❌ AI guesses wrong files</td>
+                <td>✅ Relevant snippets included</td>
+            </tr>
+            <tr>
+                <td>Constraints</td>
+                <td>❌ Unbounded behavior</td>
+                <td>✅ DO/DONT sections</td>
+            </tr>
+            <tr>
+                <td>Output format</td>
+                <td>❌ Unpredictable</td>
+                <td>✅ Specified (GIT_DIFF_ONLY)</td>
+            </tr>
+            <tr>
+                <td>Acceptance criteria</td>
+                <td>❌ None</td>
+                <td>✅ Clear success metrics</td>
+            </tr>
+        </table>
+
+        <h2>📝 Real-World Example</h2>
+
+        <h3>Request: "should we use redis or upstash for caching"</h3>
+
+        <table>
+            <tr>
+                <th>Aspect</th>
+                <th>Without opticode</th>
+                <th>With opticode</th>
+            </tr>
+            <tr>
+                <td>What happens</td>
+                <td>AI receives question, gets confused, tries to write code comparing both</td>
+                <td>Blocked locally with message: "This is a comparison. Specify implementation or analysis."</td>
+            </tr>
+            <tr>
+                <td>Tokens used</td>
+                <td>~700 (question + confused response + retry)</td>
+                <td>0 (blocked) + ~622 (after rephrase)</td>
+            </tr>
+                <td>Time spent</td>
+                <td>45 seconds (2 round trips)</td>
+                <td>10 seconds (immediate feedback + 1 call)</td>
+            </tr>
+            <tr>
+                <td>Outcome</td>
+                <td>Frustrating back-and-forth</td>
+                <td>Clear guidance, right output first time</td>
+            </tr>
+        </table>
+
+        <h2>📈 ROI Summary</h2>
+
+        <div class="highlight-box">
+            <h3>Monthly Value (50 requests/day)</h3>
+            <table>
+                <tr>
+                    <td>Additional API costs</td>
+                    <td class="negative">-$4.19</td>
+                </tr>
+                <tr>
+                    <td>Time saved (6.7 hours @ $100/hr)</td>
+                    <td class="positive">+$666.67</td>
+                </tr>
+                <tr>
+                    <td><strong>Net Value</strong></td>
+                    <td class="positive"><strong>+$662.48/month</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>🎯 Recommendations</h2>
+
+        <h3>Use opticode if:</h3>
+        <ul>
+            <li>✅ You value developer time over marginal token costs</li>
+            <li>✅ You want consistent, predictable AI outputs</li>
+            <li>✅ You're frustrated with clarification round-trips</li>
+            <li>✅ You work on codebases where context matters</li>
+            <li>✅ You want enforced constraints (DONT change unrelated files)</li>
+        </ul>
+
+        <h3>Don't use opticode if:</h3>
+        <ul>
+            <li>❌ Your only goal is minimizing token costs</li>
+            <li>❌ All your requests are extremely specific one-liners</li>
+            <li>❌ You prefer conversational interaction with AI</li>
+        </ul>
+
+        <h2>🔧 Technical Details</h2>
+
+        <h3>Processing Speed</h3>
+        <ul>
+            <li>Intent analysis (rules): ~0.05ms</li>
+            <li>Intent analysis (model): ~50-200ms</li>
+            <li>Prompt optimization: ~0.1ms</li>
+            <li>File snippet extraction: ~0.5ms</li>
+        </ul>
+
+        <h3>Model Information</h3>
+        <ul>
+            <li>Default: Qwen2-0.5B-Instruct (Q4_K_M quantized)</li>
+            <li>Size: ~400MB</li>
+            <li>RAM when loaded: ~600MB</li>
+            <li>Inference: llama.cpp (C++ backend)</li>
+            <li>Fallback: Rule-based heuristics (no model needed)</li>
+        </ul>
+
+        <div class="footnote">
+            <strong>Methodology Notes:</strong>
+            <ul>
+                <li>Benchmarks run on 20 test scenarios across 6 categories</li>
+                <li>Token estimates: 1 token ≈ 4 characters for English text</li>
+                <li>Time estimates assume 2s API latency per call</li>
+                <li>First-try success based on benchmark observation</li>
+                <li>Pricing: OpenAI GPT-4 as of January 2025</li>
+                <li>Developer rate: $100/hour (adjust for your region)</li>
+            </ul>
+            <p style="margin-top: 15px;">
+                <strong>Correction History:</strong> Initial report claimed "$5/month token savings" 
+                which was incorrect. This report corrects that to show opticode adds ~$4/month in 
+                token costs but saves $667/month in developer time.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

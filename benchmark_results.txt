@@ -1,0 +1,208 @@
+
+======================================================================
+DETAILED RESULTS
+======================================================================
+
+Test: Simple feature
+  Request: "Add error handling to the cache module"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 38 chars (~9 tokens)
+  Optimized: 1565 chars (~391 tokens)
+  Reduction: -4018.4%
+  Time: 0.1ms
+
+Test: Specific refactor
+  Request: "Refactor cli.py to use argparse subparsers"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 42 chars (~10 tokens)
+  Optimized: 1498 chars (~374 tokens)
+  Reduction: -3466.7%
+  Time: 0.1ms
+
+Test: Bug fix
+  Request: "Fix the off-by-one error in the loop"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 36 chars (~9 tokens)
+  Optimized: 615 chars (~153 tokens)
+  Reduction: -1608.3%
+  Time: 0.0ms
+
+Test: Add tests
+  Request: "Add unit tests for the optimizer module"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 39 chars (~9 tokens)
+  Optimized: 1465 chars (~366 tokens)
+  Reduction: -3656.4%
+  Time: 0.9ms
+
+Test: Too vague
+  Request: "Improve the code"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 16 chars (~4 tokens)
+  Optimized: 620 chars (~155 tokens)
+  Reduction: -3775.0%
+  Time: 0.2ms
+
+Test: Just filler
+  Request: "umm idk what to do"
+  Type: unclear
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: Your request is unclear. Please be specific: what should be built/changed?...
+  Token savings: ~4 (bad request blocked)
+  Time: 0.0ms
+
+Test: No specifics
+  Request: "Fix this"
+  Type: unclear
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: Your request is unclear. Please be specific: what should be built/changed?...
+  Token savings: ~2 (bad request blocked)
+  Time: 0.0ms
+
+Test: Help request
+  Request: "help me please"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 14 chars (~3 tokens)
+  Optimized: 618 chars (~154 tokens)
+  Reduction: -4314.3%
+  Time: 0.1ms
+
+Test: Redis vs Upstash
+  Request: "should we use redis or uptash for caching"
+  Type: compare
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a comparison. Specify: (1) 'Implement X' to build one, or (2) as...
+  Token savings: ~10 (bad request blocked)
+  Time: 0.0ms
+
+Test: Tech comparison
+  Request: "Compare Docker and Podman for deployment"
+  Type: compare
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a comparison. Specify: (1) 'Implement X' to build one, or (2) as...
+  Token savings: ~10 (bad request blocked)
+  Time: 0.0ms
+
+Test: Which database
+  Request: "which is better postgres or mysql"
+  Type: compare
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a comparison. Specify: (1) 'Implement X' to build one, or (2) as...
+  Token savings: ~8 (bad request blocked)
+  Time: 0.0ms
+
+Test: How to question
+  Request: "How do I refactor this code?"
+  Type: question
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a question. Rephrase as an imperative task: 'Implement X', 'Add ...
+  Token savings: ~7 (bad request blocked)
+  Time: 0.0ms
+
+Test: Best practice
+  Request: "What is the best way to handle errors?"
+  Type: question
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a question. Rephrase as an imperative task: 'Implement X', 'Add ...
+  Token savings: ~9 (bad request blocked)
+  Time: 0.0ms
+
+Test: Architecture Q
+  Request: "Should we use microservices?"
+  Type: question
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a question. Rephrase as an imperative task: 'Implement X', 'Add ...
+  Token savings: ~7 (bad request blocked)
+  Time: 0.0ms
+
+Test: Hesitant request
+  Request: "umm maybe add like error handling or something"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 46 chars (~11 tokens)
+  Optimized: 597 chars (~149 tokens)
+  Reduction: -1197.8%
+  Time: 0.1ms
+
+Test: Uncertain
+  Request: "i guess we should probably fix the bug"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 38 chars (~9 tokens)
+  Optimized: 625 chars (~156 tokens)
+  Reduction: -1544.7%
+  Time: 0.0ms
+
+Test: Casual
+  Request: "can you like update the readme or whatever"
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 42 chars (~10 tokens)
+  Optimized: 1487 chars (~371 tokens)
+  Reduction: -3440.5%
+  Time: 0.1ms
+
+Test: Long request
+  Request: "I need you to add a new feature to the CLI that allows 
+    ..."
+  Type: implement
+  Status: ✓ OPTIMIZED
+  Original: 317 chars (~79 tokens)
+  Optimized: 1545 chars (~386 tokens)
+  Reduction: -387.4%
+  Time: 0.1ms
+
+Test: Empty-ish
+  Request: ""
+  Type: unclear
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: What is the specific task you want performed?...
+  Token savings: ~0 (bad request blocked)
+  Time: 0.0ms
+
+Test: Single word
+  Request: "refactor"
+  Type: unclear
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: Your request is unclear. Please be specific: what should be built/changed?...
+  Token savings: ~2 (bad request blocked)
+  Time: 0.0ms
+
+Test: Punctuation only
+  Request: "???"
+  Type: question
+  Status: ⚠ CLARIFICATION REQUIRED
+  Reason: This looks like a question. Rephrase as an imperative task: 'Implement X', 'Add ...
+  Token savings: ~0 (bad request blocked)
+  Time: 0.0ms
+
+======================================================================
+SUMMARY STATISTICS
+======================================================================
+
+Total test cases:           21
+Model available:            False
+
+PERFORMANCE:
+  Average processing time:  0.1ms
+  Fastest:                  0.0ms
+  Slowest:                  0.9ms
+
+QUALITY:
+  Requests clarified:       52%
+  Avg size reduction:       -1305.2%
+  Est. tokens saved/call:   ~2
+
+COST ANALYSIS (GPT-4 pricing):
+  Original cost (input):    $0.0000
+  Optimized cost (input):   $0.0000
+  Savings from blocking:    $0.1650
+  TOTAL SAVINGS:            $0.1650 (7781866.5%)
+
+======================================================================
