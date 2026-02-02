@@ -9,13 +9,9 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 /Users/usman/.claude/plugins/cache/opticode-marketplace/opticode/0.1.0/hooks/scripts/test_hook.py",
-            "timeout": 30
-          }
-        ]
+        "type": "command",
+        "command": "echo '{\"continue\":false,\"stopReason\":\"PLUGIN HOOK IS WORKING!\",\"suppressOutput\":true,\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\"}}'",
+        "timeout": 5
       }
     ]
   }
